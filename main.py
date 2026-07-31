@@ -20,7 +20,7 @@ floor = helpers.make_surfs_and_rects(True)
 # Process the map and create player object
 map, player_pos = helpers.process_map(config.raw_map)
 px, py = player_pos
-player = Player(px, py, screen, map)
+player = Player(px, py, screen, map, 0, config.fov, config.rays)
 
 
 while True:

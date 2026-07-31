@@ -1,8 +1,13 @@
 # This file contains some general (high level) parameters that can be used to tweak the simulation
+from math import pi
 
 # screen resolution
 width = 1200
 height = 600
+
+# camera settings
+fov = pi/3
+rays = 600
 
 framerate = 60
 
