@@ -122,4 +122,4 @@ def get_val(ri,ci, map):
 # Takes the distance a ray goes before it hits a wall
 # Returns the height of the rectangle that should be rendered by that ray
 def calc_height(dist):
-    return config.height - dist * (config.height/20)
+    return 3 * int(config.height/dist)

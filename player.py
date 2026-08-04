@@ -60,7 +60,7 @@ class Player:
         lst = self.make_rays()
         prev_side = None
         prev_h = None
-        diff = 10           # if abs(prev_h-h) > diff, we assume they are different walls
+        diff = 20           # if abs(prev_h-h) > diff, we assume they are different walls
 
         for i, ray in enumerate(lst):
             d, hx, hy, side = helpers.calc_dist(self.x, self.y, ray, self.map)
