@@ -65,7 +65,9 @@ class Player:
         for i, ray in enumerate(lst):
             d, hx, hy, side = helpers.calc_dist(self.x, self.y, ray, self.map)
             # Fisheye correction
-            d *= math.cos(ray - self.angle)
+            angle_diff = ray - self.angle
+            d *= math.cos(angle_diff) ** 1.3
+
 
 
             # Compute wall height
