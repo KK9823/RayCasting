@@ -66,7 +66,7 @@ class Player:
             d, hx, hy, side = helpers.calc_dist(self.x, self.y, ray, self.map)
             # Fisheye correction
             angle_diff = ray - self.angle
-            d *= math.cos(angle_diff) ** 1.3
+            d *= math.cos(angle_diff)
 
 
 
