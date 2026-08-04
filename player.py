@@ -69,8 +69,11 @@ class Player:
         new_x = self.x + speed * math.cos(angle)
         new_y = self.y - speed * math.sin(angle)
 
-        self.x = new_x
-        self.y = new_y
+        # Only move the player if the new position in any direction is NOT a wall
+        if not helpers.is_wall(new_x, self.y, self.map):
+            self.x = new_x
+        if not helpers.is_wall(self.x, new_y, self.map):
+            self.y = new_y
 
         # Camera movements
         if keys[pygame.K_LEFT]:
