@@ -19,29 +19,60 @@ class Player:
         self.camera_sens = 0.02
         self.wall_width = config.width/rays
 
-    def getinput(self):
+    def move(self):
         keys = pygame.key.get_pressed()
 
         speed = self.speed*2 if keys[pygame.K_LSHIFT] else self.speed
+        angle = 0
 
-        if keys[pygame.K_w]:
-            angle = self.angle
-            self.x += speed * math.cos(angle)
-            self.y -= speed * math.sin(angle)
+        # Player Movements
+        if keys[pygame.K_w] and keys[pygame.K_s]:
+            if keys[pygame.K_a] and keys[pygame.K_d]:
+                speed = 0
+            elif keys[pygame.K_a]:
+                angle = self.angle + math.pi / 2
+            elif keys[pygame.K_d]:
+                angle = self.angle - math.pi / 2
+            else:
+                speed = 0
+
+        elif keys[pygame.K_w]:
+            if keys[pygame.K_a] and keys[pygame.K_d]:
+                angle = self.angle
+            elif keys[pygame.K_a]:
+                angle = self.angle + math.pi/4
+            elif keys[pygame.K_d]:
+                angle = self.angle - math.pi/4
+            else:
+                angle = self.angle
+
         elif keys[pygame.K_s]:
-            angle = self.angle + math.pi
-            self.x += speed * math.cos(angle)
-            self.y -= speed * math.sin(angle)
+            if keys[pygame.K_a] and keys[pygame.K_d]:
+                angle = self.angle + math.pi
+            elif keys[pygame.K_a]:
+                angle = self.angle + math.pi * 3/4
+            elif keys[pygame.K_d]:
+                angle = self.angle - math.pi * 3/4
+            else:
+                angle = self.angle + math.pi
 
-        if keys[pygame.K_a]:
-            angle = self.angle + math.pi/2
-            self.x += speed * math.cos(angle)
-            self.y -= speed * math.sin(angle)
-        elif keys[pygame.K_d]:
-            angle = self.angle - math.pi/2
-            self.x += speed * math.cos(angle)
-            self.y -= speed * math.sin(angle)
+        else:
+            if keys[pygame.K_a] and keys[pygame.K_d]:
+                speed = 0
+            elif keys[pygame.K_a]:
+                angle = self.angle + math.pi / 2
+            elif keys[pygame.K_d]:
+                angle = self.angle - math.pi / 2
+            else:
+                speed = 0
 
+        new_x = self.x + speed * math.cos(angle)
+        new_y = self.y - speed * math.sin(angle)
+
+        self.x = new_x
+        self.y = new_y
+
+        # Camera movements
         if keys[pygame.K_LEFT]:
             self.angle += self.camera_sens
         elif keys[pygame.K_RIGHT]:
@@ -76,7 +107,6 @@ class Player:
 
             # Distance shading
             brightness = 255 * math.exp(-d * 0.15)
-
             brightness = max(0, min(255, brightness))
 
             # Draw the rectangle
@@ -121,5 +151,5 @@ class Player:
 
     def update(self):
         self.angle %= 2 * math.pi
-        self.getinput()
+        self.move()
         self.draw_walls()

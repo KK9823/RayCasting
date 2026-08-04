@@ -123,3 +123,11 @@ def get_val(ri,ci, map):
 # Returns the height of the rectangle that should be rendered by that ray
 def calc_height(dist):
     return 3 * int(config.height/dist)
+
+
+# Takes the player's position on the map and tells whether it is a wall
+def is_wall(x,y, map):
+    ri = int(y); ci = int(x)
+    if ri < 0 or ri >= len(map): return True
+    if ci < 0 or ci >= len(map[ri]): return True
+    return map[ri][ci] == 1
